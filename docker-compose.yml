@@ -12,21 +12,26 @@ services:
     ports:
       - "127.0.0.1:18100:8000"
     environment:
+      HOST: 0.0.0.0
       PORT: "8000"
-    mem_limit: 512m
+    mem_limit: 256m
+    memswap_limit: 256m
     cpus: 0.5
-    pids_limit: 512
+    pids_limit: 128
+    read_only: true
+    tmpfs:
+      - /tmp:size=16m,mode=1777
     security_opt:
       - no-new-privileges:true
     cap_drop:
       - ALL
     stop_grace_period: 30s
     healthcheck:
-      test: ["CMD", "python", "-c", "import urllib.request,sys; r=urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=4); sys.exit(0 if r.status<500 else 1)"]
+      test: ["CMD", "python", "-c", "import urllib.request,sys; r=urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=4); sys.exit(0 if r.status==200 else 1)"]
       interval: 30s
       timeout: 5s
       retries: 3
-      start_period: 30s
+      start_period: 10s
     logging:
       driver: json-file
       options:

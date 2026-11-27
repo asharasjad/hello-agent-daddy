@@ -13,7 +13,7 @@ it contains variable names only, never values.
 | Host port | 127.0.0.1:18100 (loopback only) |
 | Private URL | https://vmi3790942.taildde6c7.ts.net:8472 (Tailscale only, no Funnel) |
 | Health check | `/health` |
-| Limits | memory 512m, CPUs 0.5, PIDs 512 |
+| Limits | memory 256m, CPUs 0.5, PIDs 128 |
 | Volumes | none (stateless) |
 | Instances | exactly one (single-instance) |
 
